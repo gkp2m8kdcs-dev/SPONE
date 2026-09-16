@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="SPONE — A private, offline portfolio journal and global stock tracker for long-term investors. Track holdings, K-line charts, dividends, and multi-currency portfolios on your iPhone." />
+<meta name="keywords" content="SPONE, portfolio tracker, stock journal, K-line chart, watchlist, dividend tracker, sector allocation, multi-currency, iPhone app" />
+<title>SPONE</title>
+<link rel="icon" type="image/png" href="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Minimal%20dark%20app%20icon%20with%20gold%20letter%20S%20on%20deep%20navy%20background%2C%20premium%20finance%20app%20icon&image_size=square_hd" />
+<style>
+  :root {
+    --bg: #0b0d12;
+    --surface: #141821;
+    --surface-2: #1b2030;
+    --border: #232a3a;
+    --text: #f5f7fb;
+    --text-dim: #aab2c5;
+    --text-mute: #6f7689;
+    --brand: #f0b429;
+    --brand-soft: rgba(240, 180, 41, 0.12);
+    --positive: #2ecc71;
+    --negative: #ff5a5f;
+    --info: #5b8cff;
+    --radius: 18px;
+    --max: 1080px;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Layout */
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 22px; }
+
+  /* Nav */
+  header.nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11, 13, 18, 0.85);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: 0.5px;
+  }
+  .logo-mark {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--brand), #b8860b);
+    display: grid; place-items: center; color: #0b0d12; font-weight: 900;
+  }
+  nav ul { display: flex; gap: 26px; list-style: none; padding: 0; margin: 0; }
+  nav a { color: var(--text-dim); font-size: 14px; font-weight: 500; }
+  nav a:hover { color: var(--text); text-decoration: none; }
+
+  /* Hero */
+  .hero {
+    padding: 80px 0 60px;
+    display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px; border-radius: 999px;
+    background: var(--brand-soft); color: var(--brand);
+    font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  }
+  h1 {
+    font-size: 54px; line-height: 1.05; margin: 18px 0 16px; letter-spacing: -1px;
+    font-weight: 800;
+  }
+  .subtitle { font-size: 18px; color: var(--text-dim); margin: 0 0 28px; max-width: 540px; }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 22px; border-radius: 12px; font-weight: 700; font-size: 15px;
+    transition: transform .15s ease, background .2s ease;
+    cursor: pointer; border: 0;
+  }
+  .btn-primary { background: var(--brand); color: #0b0d12; }
+  .btn-primary:hover { transform: translateY(-1px); text-decoration: none; }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { background: var(--surface); text-decoration: none; }
+
+  /* Hero device */
+  .device {
+    position: relative;
+    aspect-ratio: 9 / 19;
+    max-width: 360px; margin-left: auto;
+    border-radius: 42px;
+    background: linear-gradient(160deg, #1d2233, #0e1119);
+    border: 8px solid #0a0c12;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px var(--border) inset;
+    overflow: hidden;
+  }
+  .device::before {
+    content: ""; position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 26px; background: #0a0c12; border-radius: 16px; z-index: 2;
+  }
+  .device-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Sections */
+  section.block { padding: 70px 0; }
+  section.block h2 {
+    font-size: 36px; margin: 0 0 12px; letter-spacing: -0.5px; font-weight: 800;
+  }
+  section.block .lead {
+    color: var(--text-dim); font-size: 17px; max-width: 720px; margin: 0 0 40px;
+  }
+
+  /* Features grid */
+  .grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .card .ico {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--brand-soft); color: var(--brand);
+    display: grid; place-items: center; margin-bottom: 14px;
+    font-size: 20px;
+  }
+  .card h3 { margin: 0 0 6px; font-size: 17px; }
+  .card p { margin: 0; color: var(--text-dim); font-size: 14.5px; }
+
+  /* Stats */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+  }
+  .stat { text-align: center; }
+  .stat .n { font-size: 28px; font-weight: 800; color: var(--brand); }
+  .stat .l { color: var(--text-dim); font-size: 13px; margin-top: 4px; }
+
+  /* Showcase */
+  .showcase {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center;
+  }
+  .showcase img {
+    width: 100%; border-radius: var(--radius); border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .showcase ul { padding-left: 18px; color: var(--text-dim); }
+  .showcase li { margin: 10px 0; }
+
+  /* FAQ */
+  details.faq {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 18px 20px; margin-bottom: 12px;
+  }
+  details.faq summary {
+    cursor: pointer; font-weight: 700; font-size: 15.5px; list-style: none;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  details.faq summary::after { content: "+"; color: var(--brand); font-size: 22px; font-weight: 600; }
+  details.faq[open] summary::after { content: "−"; }
+  details.faq p { color: var(--text-dim); margin: 14px 0 0; }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border); padding: 40px 0 30px; margin-top: 40px;
+    color: var(--text-mute); font-size: 13.5px;
+  }
+  .foot-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 30px;
+    margin-bottom: 26px;
+  }
+  .foot-grid h4 { color: var(--text); margin: 0 0 12px; font-size: 14px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .foot-grid ul { list-style: none; padding: 0; margin: 0; }
+  .foot-grid li { margin: 8px 0; }
+  .foot-grid a { color: var(--text-dim); }
+  .foot-grid a:hover { color: var(--text); text-decoration: none; }
+  .copyright { border-top: 1px solid var(--border); padding-top: 18px; text-align: center; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding: 50px 0 30px; }
+    h1 { font-size: 40px; }
+    .device { margin: 0 auto; max-width: 280px; }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .showcase { grid-template-columns: 1fr; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+    nav ul { gap: 16px; }
+  }
+  @media (max-width: 560px) {
+    .grid { grid-template-columns: 1fr; }
+    .foot-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 34px; }
+    nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">S</span>
+      <span>SPONE</span>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="wrap hero">
+    <div>
+      <span class="eyebrow">● Available on the App Store</span>
+      <h1>The private portfolio journal for serious long-term investors.</h1>
+      <p class="subtitle">
+        SPONE is a beautiful offline workspace to log every trade,
+        chart every position, and understand where your risk actually lives — across
+        NASDAQ, NYSE, HKEX, JPX and European exchanges. No login. No subscription.
+        Your data never leaves your device.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://apps.apple.com" target="_blank" rel="noopener">Download on the App Store</a>
+        <a class="btn btn-ghost" href="#features">Explore features</a>
+      </div>
+    </div>
+    <div>
+      <div class="device" aria-hidden="true">
+        <img class="device-img"
+             src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=iPhone%20mockup%20showing%20a%20dark%20mode%20stock%20portfolio%20app%20with%20gold%20accent%20colors%2C%20K-line%20chart%2C%20watchlist%2C%20portfolio%20holdings%2C%20realistic%20UI%20screenshot%20style%2C%20premium%20finance%20app&image_size=portrait_16_9"
+             alt="SPONE app preview" />
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="wrap" style="padding-top: 10px;">
+    <div class="stats">
+      <div class="stat"><div class="n">30+</div><div class="l">Curated global stocks</div></div>
+      <div class="stat"><div class="n">12</div><div class="l">Supported currencies</div></div>
+      <div class="stat"><div class="n">6</div><div class="l">Chart timeframes</div></div>
+      <div class="stat"><div class="n">0</div><div class="l">Data uploaded</div></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="wrap block" id="features">
+    <h2>Everything an investor journal should be.</h2>
+    <p class="lead">
+      SPONE replaces the spreadsheets, screenshots and notebooks you use today with one
+      focused workspace — built for the way long-term investors actually work.
+    </p>
+    <div class="grid">
+      <div class="card">
+        <div class="ico">📈</div>
+        <h3>Interactive K-line charts</h3>
+        <p>Crosshair price inspection across six timeframes, from intraday to five-year history, with an expandable order book.</p>
+      </div>
+      <div class="card">
+        <div class="ico">💼</div>
+        <h3>Multi-portfolio journal</h3>
+        <p>Group positions by account or strategy. Each portfolio gets its own color, allocation pie, and risk score.</p>
+      </div>
+      <div class="card">
+        <div class="ico">📰</div>
+        <h3>Curated news feed</h3>
+        <p>Headlines tagged by bullish, bearish or neutral sentiment, so you can scan the narrative in seconds.</p>
+      </div>
+      <div class="card">
+        <div class="ico">💡</div>
+        <h3>Insights &amp; coaching</h3>
+        <p>Surfaces concentration risk, top contributors, drawdowns and diversification gaps — automatically.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🌍</div>
+        <h3>Multi-currency</h3>
+        <p>Built-in converter and quote calculator across USD, HKD, EUR, JPY and seven more currencies with live cross rates.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🔒</div>
+        <h3>100% offline &amp; private</h3>
+        <p>No login, no subscription, no servers. Portfolios, trades, journal entries and photos live privately on your device.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWCASE -->
+  <section class="wrap block">
+    <div class="showcase">
+      <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Dark%20mode%20finance%20app%20screenshot%20showing%20a%20detailed%20candlestick%20K-line%20chart%20with%20crosshair%20and%20order%20book%20depth%2C%20gold%20and%20navy%20color%20scheme%2C%20realistic%20iPhone%20UI&image_size=landscape_16_9"
+           alt="K-line chart inside SPONE" />
+      <div>
+        <h2 style="font-size:30px;">Read the chart. Then log the trade.</h2>
+        <p style="color:var(--text-dim); font-size:16.5px;">
+          SPONE is the only app that pairs a serious charting experience with a proper trade journal.
+          Every buy and sell is logged with quantity, price, fees, date, attachable chart screenshots,
+          and a free-form thesis note — automatically computing average cost, realized P&amp;L,
+          position size and current market value.
+        </p>
+        <ul>
+          <li>Average cost &amp; realized P&amp;L computed for you</li>
+          <li>Attach chart screenshots and photos to any trade</li>
+          <li>Sortable watchlist by sector, exchange, market cap or daily change</li>
+          <li>Dividend ledger with payout history per position</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORT PREVIEW -->
+  <section class="wrap block">
+    <h2>Help &amp; Support</h2>
+    <p class="lead">
+      Questions, feedback, or a feature request? Our team reads every email.
+      For FAQs, contact details, and our response policy, visit the
+      <a href="support.html">Support page</a>.
+    </p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="wrap block">
+    <h2>Frequently asked questions</h2>
+    <p class="lead">Quick answers about privacy, data, and how SPONE works.</p>
+
+    <details class="faq">
+      <summary>Does SPONE connect to my brokerage?</summary>
+      <p>No. SPONE never requests account credentials, never connects to a brokerage, and never has access to your real trading accounts. It is a self-contained tracking and journaling tool.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Where is my data stored?</summary>
+      <p>Everything — portfolios, trades, journal entries, and attached photos — is stored locally on your iPhone. Nothing is uploaded to any server.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Are the prices real-time?</summary>
+      <p>SPONE is an educational tracking tool. Prices, charts, news and dividend events shown in the app are generated locally for demonstration purposes and do not represent live, tradable market data.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Is there a subscription?</summary>
+      <p>No subscription. No in-app purchases. No ads. SPONE is a one-time purchase.</p>
+    </details>
+
+    <details class="faq">
+      <summary>How do I delete my data?</summary>
+      <p>Open Settings → Data → Reset All Data, or simply delete the app. All local data is permanently removed.</p>
+    </details>
+
+    <details class="faq">
+      <summary>How do I contact support?</summary>
+      <p>Email <a href="mailto:Mefepzavap@icloud.com">Mefepzavap@icloud.com</a>. See the <a href="support.html">Support page</a> for full details.</p>
+    </details>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" href="index.html" style="margin-bottom:14px;">
+          <span class="logo-mark">S</span>
+          <span>SPONE</span>
+        </a>
+        <p style="margin-top:14px; max-width: 340px;">
+          SPONE is an offline portfolio journal built for long-term investors
+          who track global equities across multiple accounts and strategies.
+        </p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="https://apps.apple.com" target="_blank" rel="noopener">Download</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="support.html">Support</a></li>
+          <li><a href="mailto:Mefepzavap@icloud.com">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2026 SPONE. All rights reserved. &nbsp;·&nbsp;
+      Nothing in this app is investment advice.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

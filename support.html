@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="SPONE Support — FAQs, contact email, troubleshooting, and how to get help fast." />
+<title>Support — SPONE</title>
+<link rel="icon" type="image/png" href="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Minimal%20dark%20app%20icon%20with%20gold%20letter%20S%20on%20deep%20navy%20background%2C%20premium%20finance%20app%20icon&image_size=square_hd" />
+<style>
+  :root {
+    --bg: #0b0d12; --surface: #141821; --surface-2: #1b2030; --border: #232a3a;
+    --text: #f5f7fb; --text-dim: #aab2c5; --text-mute: #6f7689;
+    --brand: #f0b429; --brand-soft: rgba(240, 180, 41, 0.12);
+    --positive: #2ecc71; --radius: 18px; --max: 980px;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; line-height: 1.65;
+  }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 22px; }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11, 13, 18, 0.85); backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px); border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: 0.5px; }
+  .logo-mark {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--brand), #b8860b);
+    display: grid; place-items: center; color: #0b0d12; font-weight: 900;
+  }
+  nav ul { display: flex; gap: 22px; list-style: none; padding: 0; margin: 0; }
+  nav a { color: var(--text-dim); font-size: 14px; font-weight: 500; }
+  nav a:hover { color: var(--text); text-decoration: none; }
+
+  /* Hero */
+  .hero {
+    padding: 70px 0 30px;
+    text-align: center;
+  }
+  .hero .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px; border-radius: 999px;
+    background: var(--brand-soft); color: var(--brand);
+    font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  }
+  h1 { font-size: 48px; margin: 18px 0 12px; letter-spacing: -1px; font-weight: 800; }
+  .lead { color: var(--text-dim); font-size: 17px; max-width: 720px; margin: 0 auto 30px; }
+
+  /* Contact card */
+  .contact-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 30px;
+    display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;
+    margin: 0 0 50px;
+  }
+  .contact-card h2 { margin: 0 0 6px; font-size: 22px; }
+  .contact-card p { margin: 0; color: var(--text-dim); font-size: 15px; }
+  .contact-card .email {
+    color: var(--brand); font-weight: 700; font-size: 18px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 22px; border-radius: 12px; font-weight: 700; font-size: 15px;
+    cursor: pointer; border: 0; transition: transform .15s ease, background .2s ease;
+  }
+  .btn-primary { background: var(--brand); color: #0b0d12; }
+  .btn-primary:hover { transform: translateY(-1px); text-decoration: none; }
+
+  /* FAQ */
+  section.block { padding: 20px 0 40px; }
+  section.block h2 {
+    font-size: 28px; margin: 0 0 22px; letter-spacing: -0.3px; font-weight: 800;
+  }
+
+  details.faq {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 18px 20px; margin-bottom: 12px;
+  }
+  details.faq summary {
+    cursor: pointer; font-weight: 700; font-size: 15.5px; list-style: none;
+    display: flex; justify-content: space-between; align-items: center; color: var(--text);
+  }
+  details.faq summary::after { content: "+"; color: var(--brand); font-size: 22px; font-weight: 600; }
+  details.faq[open] summary::after { content: "−"; }
+  details.faq p { color: var(--text-dim); margin: 14px 0 0; font-size: 14.5px; }
+  details.faq ul { color: var(--text-dim); padding-left: 20px; margin: 14px 0 0; }
+  details.faq ul li { margin: 4px 0; font-size: 14.5px; }
+
+  /* Two columns */
+  .grid-2 {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 30px;
+  }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+  }
+  .card h3 { margin: 0 0 8px; font-size: 17px; color: var(--text); }
+  .card p { margin: 0 0 8px; color: var(--text-dim); font-size: 14.5px; }
+  .card .ico {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: var(--brand-soft); color: var(--brand);
+    display: grid; place-items: center; margin-bottom: 12px; font-size: 18px;
+  }
+
+  /* Form */
+  .form-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .form-row.single { grid-template-columns: 1fr; }
+  label { display: block; font-size: 13px; color: var(--text-dim); margin-bottom: 6px; font-weight: 600; }
+  input, textarea, select {
+    width: 100%; background: var(--bg); color: var(--text);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 14px; font-size: 14.5px; font-family: inherit;
+    transition: border-color .15s ease;
+  }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--brand); }
+  textarea { resize: vertical; min-height: 130px; }
+  .form-help { font-size: 12.5px; color: var(--text-mute); margin-top: 8px; }
+
+  footer {
+    border-top: 1px solid var(--border); padding: 28px 0;
+    color: var(--text-mute); font-size: 13px; text-align: center;
+  }
+
+  @media (max-width: 720px) {
+    .contact-card { grid-template-columns: 1fr; text-align: center; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    h1 { font-size: 36px; }
+    nav ul { gap: 14px; }
+    nav a { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="index.html"><span class="logo-mark">S</span><span>SPONE</span></a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <span class="eyebrow">● Support</span>
+    <h1>We're here to help.</h1>
+    <p class="lead">
+      SPONE is a focused, offline portfolio journal — and our support is just as focused.
+      Browse the FAQs below, or send us a note. We read every email.
+    </p>
+  </section>
+
+  <section class="wrap">
+    <div class="contact-card">
+      <div>
+        <h2>Email us</h2>
+        <p>Best for bugs, account issues, feature requests, and partnership inquiries.</p>
+        <p style="margin-top:10px;"><span class="email">Mefepzavap@icloud.com</span></p>
+        <p style="margin-top:6px; font-size:13px;">Typical response time: within 2 business days.</p>
+      </div>
+      <a class="btn btn-primary" href="mailto:Mefepzavap@icloud.com?subject=SPONE%20Support">Send email →</a>
+    </div>
+  </section>
+
+  <section class="wrap block">
+    <div class="grid-2">
+      <div class="card">
+        <div class="ico">🛠️</div>
+        <h3>Report a bug</h3>
+        <p>Something look wrong? Tell us what happened, what you expected, and the device + iOS version you're using.</p>
+      </div>
+      <div class="card">
+        <div class="ico">💡</div>
+        <h3>Request a feature</h3>
+        <p>We build SPONE for serious long-term investors. If a feature would meaningfully improve your workflow, we want to hear it.</p>
+      </div>
+      <div class="card">
+        <div class="ico">💳</div>
+        <h3>Purchase &amp; refunds</h3>
+        <p>Purchases and refunds are handled by Apple. Tap your purchase in the App Store to request a refund from Apple Support.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🔒</div>
+        <h3>Privacy &amp; data</h3>
+        <p>SPONE stores everything locally. We cannot recover data on a lost device. See our <a href="privacy.html">Privacy Policy</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap block">
+    <h2>Frequently asked questions</h2>
+
+    <details class="faq" open>
+      <summary>How do I get in touch with support?</summary>
+      <p>Email <a href="mailto:Mefepzavap@icloud.com">Mefepzavap@icloud.com</a>. We typically respond within 2 business days. Please include your device model, iOS version, and a short description of the issue.</p>
+    </details>
+
+    <details class="faq">
+      <summary>The app won't open / crashes immediately</summary>
+      <ul>
+        <li>Make sure your iPhone runs iOS 16 or later (Settings → General → About → iOS Version).</li>
+        <li>Force-quit the app and re-open it (swipe up from the bottom, then swipe SPONE away).</li>
+        <li>Restart your iPhone.</li>
+        <li>Reinstall the app: delete SPONE, then redownload it from the App Store. Your local data will be lost — there is no cloud backup.</li>
+      </ul>
+      <p>If the issue persists, please email support with the steps that reproduce it.</p>
+    </details>
+
+    <details class="faq">
+      <summary>I lost my portfolios after updating the app</summary>
+      <p>SPONE stores data inside the iOS app sandbox. If you uninstall the app or restore your iPhone from a backup that predates the install, the local data will not be available. We do not have a copy and cannot restore it on your behalf. Going forward, please avoid deleting the app and consider keeping regular iCloud device backups enabled.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Are the prices in the app real?</summary>
+      <p>No. SPONE is an educational tracking tool. Prices, charts, news and dividend events shown in the app are generated locally for demonstration. Please do not use SPONE to place trades or as a source of live market data. See <a href="terms.html">Terms of Use</a>, section 3.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Can I sync my data between iPhone and iPad?</summary>
+      <p>Not currently. SPONE is single-device by design — every portfolio, trade and journal entry lives in the local app sandbox. Multi-device sync is a frequently requested feature and is on our roadmap.</p>
+    </details>
+
+    <details class="faq">
+      <summary>How do I delete all my data?</summary>
+      <p>Open the app → Settings → Data → Reset All Data. Or simply delete the app from your home screen. Both options permanently erase everything stored on your device.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Does SPONE support Apple Watch, Mac, or Android?</summary>
+      <p>SPONE is currently iPhone-only, built for iOS 16 and up. We are evaluating other platforms based on user demand.</p>
+    </details>
+
+    <details class="faq">
+      <summary>How do I request a refund?</summary>
+      <p>Refunds are handled by Apple. Open the App Store → tap your profile icon → tap your name → tap "Purchase History" → find SPONE → tap "Report a Problem" → choose "Request a refund". The developer cannot issue refunds directly.</p>
+    </details>
+
+    <details class="faq">
+      <summary>I'm a journalist / creator — who do I contact for press?</summary>
+      <p>Please email <a href="mailto:Mefepzavap@icloud.com?subject=SPONE%20Press%20Inquiry">Mefepzavap@icloud.com</a> with the subject line "Press". We'll do our best to respond quickly.</p>
+    </details>
+  </section>
+
+  <section class="wrap block">
+    <h2>Send us a message</h2>
+    <form class="form-card" action="mailto:Mefepzavap@icloud.com" method="post" enctype="text/plain">
+      <div class="form-row">
+        <div>
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" placeholder="Jane Doe" required />
+        </div>
+        <div>
+          <label for="email">Your email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required />
+        </div>
+      </div>
+      <div class="form-row single">
+        <div>
+          <label for="topic">Topic</label>
+          <select id="topic" name="topic">
+            <option>Bug report</option>
+            <option>Feature request</option>
+            <option>Purchase / refund question</option>
+            <option>Privacy / data question</option>
+            <option>Press / partnership</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row single">
+        <div>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Please describe what happened, what you expected, and the steps to reproduce." required></textarea>
+          <div class="form-help">Submitting this form opens your default mail app and pre-fills a message to Mefepzavap@icloud.com.</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Open email app →</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  &copy; 2026 SPONE. All rights reserved. &nbsp;·&nbsp;
+  <a href="index.html">Home</a> &nbsp;·&nbsp;
+  <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
+  <a href="terms.html">Terms of Use</a>
+</footer>
+
+</body>
+</html>
